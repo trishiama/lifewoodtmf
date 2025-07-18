@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Data Projects - Lifewood</title>
+        <meta name="description" content="Lifewood is a global leader in AI data services, empowering the future of innovation with high-quality data acquisition, annotation, and validation.">
+
+     <link rel="icon" href="icon.png" type="image/png">
+    <link rel="apple-touch-icon" href="icon.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Lora:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --brand-green: #0a5441;
+            --brand-saffron: #FFB347;
+            --text-dark: #333333;
+            --text-light: #f4f4f4;
+            --bg-paper: #f7f7f7;
+            --bg-white: #ffffff;
+            --border-color: #e0e0e0;
+        }
+        html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Manrope', sans-serif; 
+            background-color: var(--bg-paper); 
+            color: var(--text-dark); 
+        }
+        main { position: relative; z-index: 1; }
+        body.mobile-nav-open {
+            overflow: hidden;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+        
+        /* --- HEADER (Consistent) --- */
+        .header { position: sticky; top: 0; left: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; z-index: 1000; background-color: rgba(247, 247, 247, 0.8); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); }
+        .logo-container { display: flex; align-items: center; text-decoration: none; }
+        .logo-image { height:80px; width: auto; display: block; }
+      .logo-text-wrapper {
+    display: flex;
+    flex-direction: column; /* Change to row for side-by-side layout */
+    align-items: center; /* Vertically center the logo and text */
+    gap: 15px; /* Add some space between them */
+}
+
+.tagline-logo-line {
+    font-family: 'Manrope', sans-serif;
+    font-size: 13px;
+    font-weight: 500; /* Slightly bolder for better readability */
+    color: #555;
+    white-space: nowrap;
+    line-height: 1; /* Adjust line-height for better alignment */
+    /* The margin-top is no longer needed */
+}
+        .header-right { display: flex; align-items: center; gap: 25px; }
+        .primary-navigation ul { display: flex; gap: 25px; list-style: none; margin: 0; padding: 0; }
+        .primary-navigation a { font-family: 'Lora', serif; font-size: 16px; color: var(--text-dark); text-decoration: none; position: relative; padding-bottom: 5px; transition: color 0.3s ease; }
+        .primary-navigation a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background-color: var(--brand-green); transition: width 0.3s ease, background-color 0.3s ease; }
+        .primary-navigation a:hover::after { width: 100%; }
+        .primary-navigation a.active-link { color: var(--brand-saffron); font-weight: 500; }
+        .primary-navigation a.active-link::after { width: 100%; background-color: var(--brand-saffron); }
+        .contact-btn { background-color: var(--brand-green); color: var(--text-light); text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 700; font-size: 15px; transition: background-color 0.3s ease; white-space: nowrap; }
+        .contact-btn:hover { background-color: #0d6b52; }
+        .nav-toggle { display: none; }
+        
+        /* --- HERO (Consistent) --- */
+        .hero { display: flex; justify-content: center; align-items: center; height: 85vh; padding: 100px 40px 40px; background-color: #1a1a1a; overflow: hidden; position: relative; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10, 25, 20, 0.5); z-index: 1; }
+        .hero-wallpaper-video { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); min-width: 100%; min-height: 100%; width: auto; height: auto; object-fit: cover; z-index: 0; }
+        .hero-content { display: flex; flex-direction: column; align-items: center; gap: 1rem; position: relative; z-index: 2; text-align: center; }
+        .hero-main-text { font-family: 'Manrope', sans-serif; font-size: clamp(3rem, 10vw, 6.5rem); font-weight: 700; color: #ffffff; line-height: 1.1; text-transform: uppercase; letter-spacing: 0.08em; }
+        .hero-tagline { font-family: 'Lora', serif; font-size: clamp(1.1rem, 2.5vw, 1.4rem); font-weight: 500; color: #FFB347; text-transform: uppercase; letter-spacing: 0.2em; }
+
+        /* --- INTRO & SEARCH BAR --- */
+        .intro-section { background-color: var(--bg-paper); padding: 100px 40px; text-align: center; }
+        .intro-content { max-width: 800px; margin: 0 auto; }
+        .intro-content h2 { font-size: clamp(2rem, 5vw, 2.625rem); color: var(--brand-green); margin-bottom: 15px; font-family: 'Lora', serif; }
+        .intro-content p { font-size: 18px; line-height: 1.8; color: #555; }
+        .search-container { position: relative; max-width: 600px; margin: 40px auto 0; }
+        .search-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); width: 22px; height: 22px; color: #999; }
+        #project-search-input { width: 100%; padding: 18px 20px 18px 60px; border-radius: 50px; border: 1px solid var(--border-color); font-size: 1rem; font-family: 'Manrope', sans-serif; background-color: var(--bg-white); transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+        #project-search-input:focus { outline: none; border-color: var(--brand-green); box-shadow: 0 0 0 4px rgba(10, 84, 65, 0.2); }
+        #project-search-input::placeholder { color: #999; }
+
+        /* --- PROJECT SECTION STYLES --- */
+        .project-section { padding: 100px 40px; background-color: var(--bg-white); }
+        .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
+        .project-card-image-wrapper { height: 220px; overflow: hidden; }
+        .project-card-image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1); }
+        .project-card-content { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; }
+        .project-card-header { display: flex; align-items: baseline; gap: 15px; margin-bottom: 15px; }
+        .project-number { font-family: 'Lora', serif; font-size: 20px; font-weight: 700; color: var(--brand-saffron); }
+        .project-card h4 { font-size: 22px; font-family: 'Lora', serif; color: var(--brand-green); line-height: 1.3; margin: 0; }
+        .project-card p { font-size: 15px; line-height: 1.7; color: #666; margin-bottom: 25px; flex-grow: 1; }
+        .read-more-btn { background: none; border: none; font-family: inherit; font-weight: 700; color: var(--brand-green); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; font-size: 14px; cursor: pointer; position: relative; padding-bottom: 3px; padding-left: 0; padding-right: 0; text-align: left; }
+        .read-more-btn::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: var(--brand-saffron); transition: width 0.3s ease; }
+        .read-more-btn:hover::after { width: 100%; }
+        .read-more-btn:focus-visible {
+    outline: 2px solid var(--brand-saffron);
+    outline-offset: 3px;
+}
+
+        /* --- START: Flip Card Styles (UPDATED) --- */
+        .project-card {
+            background: var(--bg-white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            opacity: 0;
+            transform: translateY(30px);
+            perspective: 1500px;
+            min-height: 480px; 
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        .project-card.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .project-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+        .project-card.is-flipped .project-card-inner {
+            transform: rotateY(180deg);
+        }
+        .project-card-front,
+        .project-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .project-card-back {
+            background-color: var(--bg-white);
+            transform: rotateY(180deg);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .card-back-video-wrapper {
+            height: 220px;
+            background-color: #000;
+        }
+        .project-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .card-back-content {
+            flex-grow: 1;
+            padding: 25px 30px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-back-content h4 {
+            font-family: 'Lora', serif;
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: 700;
+            color: var(--brand-green);
+        }
+        .card-back-details p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #666;
+            flex-grow: 1;
+            margin-bottom: 20px;
+        }
+        .flip-back-btn {
+            background: var(--bg-paper);
+            border: 1px solid var(--border-color);
+            color: var(--brand-green);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            margin: 0 auto;
+        }
+        .flip-back-btn:hover {
+            background-color: var(--brand-green);
+            color: var(--text-light);
+        }
+        /* --- END: Flip Card Styles --- */
+
+        /* --- FOOTER & PRELOADER (Consistent) --- */
+        .tagline-section { padding: 100px 40px; background-color: var(--bg-paper); text-align: center; }
+        .tagline-section h2 { font-family: 'Lora', serif; font-size: clamp(2rem, 5vw, 3.5rem); color: var(--brand-saffron); font-weight: 500; }
+        .site-footer { background-color: var(--brand-green); color: var(--text-light); padding: 80px 40px 40px; }
+        .footer-main { display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 50px; padding-bottom: 50px; border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
+        .footer-column .footer-logo { display: flex; align-items: center; text-decoration: none; margin-bottom: 20px; }
+          .footer-column .logo-image { 
+  /* Remove the filter */
+}
+        .footer-column .footer-logo .tagline-   logo-line { color: rgba(255, 255, 255, 0.7); }
+        .footer-column p.footer-description { font-size: 15px; line-height: 1.7; opacity: 0.8; max-width: 300px; }
+        .footer-column h4 { font-size: 18px; margin-bottom: 20px; font-weight: 700; color: var(--brand-saffron); }
+        .footer-links { list-style: none; padding: 0; margin: 0; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: var(--text-light); text-decoration: none; opacity: 0.8; transition: opacity 0.3s ease; }
+        .footer-links a:hover { opacity: 1; }
+        .footer-socials { display: flex; gap: 10px; }
+        .footer-socials a { display: inline-flex; justify-content: center; align-items: center; width: 40px; height: 40px; background-color: rgba(255, 255, 255, 0.1); border-radius: 5px; transition: background-color 0.3s ease; }
+        .footer-socials a:hover { background-color: var(--brand-saffron); }
+        .footer-socials svg { width: 20px; height: 20px; fill: var(--text-light); }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 30px; font-size: 14px; opacity: 0.7; }
+        .footer-bottom-links { display: flex; align-items: center; gap: 20px; }
+        .footer-bottom-links a { color: var(--text-light); text-decoration: none; }
+        .logo-hex-icon { background-color: var(--brand-saffron); width: 20px; height: 23px; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
+        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; background-color: var(--bg-paper); display: flex; justify-content: center; align-items: center; opacity: 1; visibility: visible; transition: opacity 0.75s ease, visibility 0s 0.75s; }
+        #preloader.preloader-hidden { opacity: 0; visibility: hidden; }
+        .loader-logo { display: flex; justify-content: center; align-items: center; }
+        .loader-logo-img { height: 45px; width: auto; animation: spin-pulse 2s infinite linear; }
+        @keyframes spin-pulse { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(180deg) scale(1.1); } 100% { transform: rotate(360deg) scale(1); } }
+        .mobile-nav-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-paper); z-index: 2000; display: flex; flex-direction: column; justify-content: center; align-items: center; transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1); }
+        .mobile-nav-overlay.open { transform: translateY(0); }
+        .mobile-nav-overlay ul { list-style: none; text-align: center; padding: 0; }
+        .mobile-nav-overlay li { margin: 20px 0; }
+        .mobile-nav-overlay a { font-family: 'Lora', serif; font-size: 28px; color: var(--text-dark); text-decoration: none; }
+        .mobile-nav-overlay a.active-link { color: var(--brand-saffron); }
+        @media (max-width: 1024px) { .primary-navigation, .header .contact-btn { display: none; } .nav-toggle { display: block; background: none; border: none; cursor: pointer; position: relative; z-index: 2001; } .hamburger { display: block; position: relative; width: 30px; height: 3px; background-color: var(--text-dark); border-radius: 5px; } .hamburger::before, .hamburger::after { content: ''; position: absolute; left: 0; width: 100%; height: 3px; background-color: var(--text-dark); transition: transform 0.3s ease; border-radius: 5px; } .hamburger::before { top: -8px; } .hamburger::after { top: 8px; } .mobile-nav-open .hamburger { background-color: transparent; } .mobile-nav-open .hamburger::before { transform: translateY(8px) rotate(45deg); } .mobile-nav-open .hamburger::after { transform: translateY(-8px) rotate(-45deg); } }
+        @media (max-width: 900px) { .container { padding: 0 20px; } .header { padding: 20px; } .intro-section, .project-section, .tagline-section, .site-footer { padding-left: 20px; padding-right: 20px; } .footer-main { grid-template-columns: 1fr 1fr; } .footer-column:first-child { grid-column: 1 / -1; text-align: center; } .footer-column:first-child .footer-logo { justify-content: center; } .footer-column:first-child .logo-text-wrapper { align-items: center; } .footer-column:first-child .footer-description { margin: 0 auto; } }
+        @media (max-width: 600px) { .footer-main { grid-template-columns: 1fr; text-align: center; } .footer-column { margin-bottom: 30px; } .footer-links { text-align: center; } .footer-socials { justify-content: center; } .footer-bottom { flex-direction: column-reverse; gap: 20px; } }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <a href="index.html" class="logo-container">
+            <div class="logo-text-wrapper">
+                <img src="logo.png" alt="index Logo" class="logo-image">
+                <div class="tagline-logo-line">Lifewood Data Technology Limited</div>
+            </div>
+        </a>
+        <div class="header-right">
+            <nav class="primary-navigation" id="primary-navigation-desktop">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                                  <li><a href="About Us.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="project.html" class="active-link">Projects</a></li>
+                </ul>
+            </nav>
+            <a href="contact.html" class="contact-btn">Contact</a>
+            <button class="nav-toggle" aria-controls="mobile-nav-overlay" aria-expanded="false">
+                <span class="hamburger"></span>
+            </button>
+        </div>
+    </header>
+    <div class="mobile-nav-overlay" id="mobile-nav-overlay">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+                          <li><a href="About Us.html">About Us</a></li>
+            <li><a href="services.html">Services</a></li>   
+            <li><a href="project.html" class="active-link">Projects</a></li>
+        </ul>
+        <a href="contact.html" class="contact-btn">Contact</a>
+    </div>
+
+    <main>
+        <section class="hero">
+            <video class="hero-wallpaper-video" src="aividproject.mp4" autoplay loop muted playsinline></video>
+            <div class="hero-content">
+                <h1 class="hero-main-text">AI Data Projects</h1>
+                <p class="hero-tagline">Driven by Innovation</p>
+            </div>
+        </section>
+        <section class="intro-section">
+            <div class="container">
+                <div class="intro-content">
+                    <h2>Explore Our Work</h2>
+                    <p>We empower businesses to achieve transformative outcomes by bringing data to life. Our diverse portfolio showcases expertise in turning complex data challenges into powerful, AI-driven solutions across a wide range of industries.</p>
+                    <div class="search-container">
+                        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path></svg>
+                        <input type="search" id="project-search-input" placeholder="Search projects (e.g., Vision, Genealogy)...">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- START: Corrected Project Section -->
+        <section class="project-section">
+            <div class="container">
+                <div class="project-grid">
+
+                    <!-- Card 1 -->
+                    <div class="project-card" 
+                         data-video="Data streams on computer screens.mp4" 
+                         data-details="<p>Our tools digitize and structure info from diverse sources with unparalleled accuracy, turning inaccessible information into structured, machine-readable formats.</p>">
+                        <div class="project-card-inner">
+                            <div class="project-card-front">
+                                <div class="project-card-image-wrapper"><img src="Data streams on computer screens.445Z.png" alt="Data streams on computer screens" class="project-card-image"></div>
+                                <div class="project-card-content">
+                                    <div class="project-card-header"><span class="project-number">01.</span><h4>AI Data Extraction</h4></div>
+                                    <p>We optimize acquiring image and text data from diverse sources, including onsite scanning, drone photography, and partnerships with archives.</p>
+                                    <button class="read-more-btn">Read More →</button>
+                                </div>
+                            </div>
+                            <div class="project-card-back">
+                                <div class="card-back-video-wrapper">
+                                    <video loop muted playsinline class="project-video"></video>
+                                </div>
+                                <div class="card-back-content">
+                                    <h4>AI Data Extraction</h4>
+                                    <div class="card-back-details"></div>
+                                    <button class="flip-back-btn">← Flip Back</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="project-card" 
+                         data-video="Code on a screen representing machine learning.mp4"
+                         data-details="<p>We provide end-to-end data pipelines to support the entire ML lifecycle, ensuring a steady stream of clean, labeled, and validated data for any model.</p>">
+                        <div class="project-card-inner">
+                            <div class="project-card-front">
+                                <div class="project-card-image-wrapper"><img src="Code on a screen representing machine learning.456Z - Copy (2).png" alt="Code on a screen representing machine learning" class="project-card-image"></div>
+                                <div class="project-card-content">
+                                    <div class="project-card-header"><span class="project-number">02.</span><h4>Machine Learning Enablement</h4></div>
+                                    <p>From simple data to deep learning, our solutions are highly flexible, enabling a wide variety of ML systems, no matter the model's complexity.</p>
+                                    <button class="read-more-btn">Read More →</button>
+                                </div>
+                            </div>
+                            <div class="project-card-back">
+                                <div class="card-back-video-wrapper">
+                                    <video loop muted playsinline class="project-video"></video>
+                                </div>
+                                <div class="card-back-content">
+                                    <h4>Machine Learning Enablement</h4>
+                                    <div class="card-back-details"></div>
+                                    <button class="flip-back-btn">← Flip Back</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 3 -->
+                    <div class="project-card"
+                         data-video="genealogy.mp4"
+                         data-details="<p>Using specialized AI, we scan, transcribe, and Lifewood historical documents, deciphering handwritten scripts to build comprehensive family histories.</p>">
+                        <div class="project-card-inner">
+                            <div class="project-card-front">
+                                <div class="project-card-image-wrapper"><img src="genealogy.jpeg" alt="Historical documents for genealogy" class="project-card-image"></div>
+                                <div class="project-card-content">
+                                    <div class="project-card-header"><span class="project-number">03.</span><h4>Genealogy</h4></div>
+                                    <p>Powered by AI, we process genealogical material at speed and scale to conserve and illuminate family histories and national archives.</p>
+                                    <button class="read-more-btn">Read More →</button>
+                                </div>
+                            </div>
+                            <div class="project-card-back">
+                                <div class="card-back-video-wrapper">
+                                    <video loop muted playsinline class="project-video"></video>
+                                </div>
+                                <div class="card-back-content">
+                                    <h4>Genealogy</h4>
+                                    <div class="card-back-details"></div>
+                                    <button class="flip-back-btn">← Flip Back</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="project-card"
+                         data-video="speaking.mp4"
+                         data-details="<p>We empower models to understand not just words, but context, intent, and emotion by providing nuanced data for NLP in over 50 languages.</p>">
+                        <div class="project-card-inner">
+                            <div class="project-card-front">
+                                <div class="project-card-image-wrapper"><img src="speaking.png" alt="A person speaking into a microphone for NLP" class="project-card-image"></div>
+                                <div class="project-card-content">
+                                    <div class="project-card-header"><span class="project-number">04.</span><h4>Natural Language Processing</h4></div>
+                                    <p>We partner with the world’s most advanced companies in NLP, offering solutions in over 50 language capabilities with our global workforce.</p>
+                                    <button class="read-more-btn">Read More →</button>
+                                </div>
+                            </div>
+                            <div class="project-card-back">
+                                <div class="card-back-video-wrapper">
+                                    <video loop muted playsinline class="project-video"></video>
+                                </div>
+                                <div class="card-back-content">
+                                    <h4>Natural Language Processing</h4>
+                                    <div class="card-back-details"></div>
+                                    <button class="flip-back-btn">← Flip Back</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="project-card"
+                         data-video="customer.mp4"
+                         data-details="<p>We build the data foundation for intelligent chatbots and virtual assistants that understand user queries and anticipate customer needs.</p>">
+                        <div class="project-card-inner">
+                            <div class="project-card-front">
+                                <div class="project-card-image-wrapper"><img src="customer.030Z.png" alt="Customer service agent with a headset" class="project-card-image"></div>
+                                <div class="project-card-content">
+                                    <div class="project-card-header"><span class="project-number">05.</span><h4>AI-Enabled Customer Service</h4></div>
+                                    <p>AI service is the quickest route for institutions to deliver personalized, proactive experiences that drive customer engagement and loyalty.</p>
+                                    <button class="read-more-btn">Read More →</button>
+                                </div>
+                            </div>
+                            <div class="project-card-back">
+                                <div class="card-back-video-wrapper">
+                                    <video loop muted playsinline class="project-video"></video>
+                                </div>
+                                <div class="card-back-content">
+                                    <h4>AI-Enabled Customer Service</h4>
+                                    <div class="card-back-details"></div>
+                                    <button class="flip-back-btn">← Flip Back</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 6 -->
+                    <div class="project-card"
+                         data-video="vision.mp4"
+                         data-details="<p>We provide the pixel-perfect ground truth that high-performance models demand, from medical imaging to satellite imagery.</p>">
+                        <div class="project-card-inner">
+                            <div class="project-card-front">
+                                <div class="project-card-image-wrapper"><img src="aivison.webp" alt="Digital overlay of a face for computer vision" class="project-card-image"></div>
+                                <div class="project-card-content">
+                                    <div class="project-card-header"><span class="project-number">06.</span><h4>Computer Vision</h4></div>
+                                    <p>Training AI to see and understand the world requires a high volume of quality training data. We provide total data solutions for CV development.</p>
+                                    <button class="read-more-btn">Read More →</button>
+                                </div>
+                            </div>
+                            <div class="project-card-back">
+                                <div class="card-back-video-wrapper">
+                                    <video loop muted playsinline class="project-video"></video>
+                                </div>
+                                <div class="card-back-content">
+                                    <h4>Computer Vision</h4>
+                                    <div class="card-back-details"></div>
+                                    <button class="flip-back-btn">← Flip Back</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 7 -->
+                    <div class="project-card"
+                         data-video="autonomousdrive2.mp4"
+                         data-details="<p>We provide critical data services to train self-driving systems, including highly detailed 2D and 3D annotation of sensor data.</p>">
+                        <div class="project-card-inner">
+                            <div class="project-card-front">
+                                <div class="project-card-image-wrapper"><img src="autonomousdriving.webp" alt="Interior of a modern car with dashboard lit up" class="project-card-image"></div>
+                                <div class="project-card-content">
+                                    <div class="project-card-header"><span class="project-number">07.</span><h4>Autonomous Driving</h4></div>
+                                    <p>At Lifewood, innovation drives us continually forward. This is especially true of our contribution to Autonomous Driving Technology.</p>
+                                    <button class="read-more-btn">Read More →</button>
+                                </div>
+                            </div>
+                            <div class="project-card-back">
+                                <div class="card-back-video-wrapper">
+                                    <video loop muted playsinline class="project-video"></video>
+                                </div>
+                                <div class="card-back-content">
+                                    <h4>Autonomous Driving</h4>
+                                    <div class="card-back-details"></div>
+                                    <button class="flip-back-btn">← Flip Back</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="no-results-message" style="display: none; text-align: center; padding: 50px 20px; color: #555;">
+                    <h3 style="font-family: 'Lora', serif; font-size: 1.8rem; color: var(--brand-green); margin-bottom: 10px;">No Projects Found</h3>
+                    <p>Try searching for a different keyword.</p>
+                </div>
+
+            </div>
+        </section>
+        <!-- END: Corrected Project Section -->
+
+    </main>
+
+    <section class="tagline-section">
+        <h2>Always On Never Off</h2>
+    </section>
+    <footer id="contact" class="site-footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-column">
+                    <a href="index.html" class="footer-logo">
+                        <div class="logo-text-wrapper">
+                           <img src="icon.png" alt="index Logo" class="logo-image">
+                           <div class="tagline-logo-line">Lifewood Data Technology Limited</div>
+                        </div>
+                    </a>
+                    <p class="footer-description">
+                        Lifewood is a global leader in data services, delivering high-quality, scalable support to power cutting-edge artificial intelligence technologies worldwide.
+                    </p>
+                </div>
+                <div class="footer-column">
+                    <h4>Explore</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="project.html">Projects</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:hr.Lifewood@gmail.com">hr.Lifewood@gmail.com</a></li>
+                        <li><a href="tel:+1234567890">+1 (234) 567-890</a></li>
+                        <li><p style="opacity: 0.8; margin: 0;">123 Innovation Drive, Tech City</p></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Follow Us</h4>
+                    <div class="footer-socials">
+                        <a href="https://www.facebook.com/LifewoodPH" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v7.028C18.343 21.128 22 16.991 22 12z"/></svg></a>
+                        <a href="https://www.youtube.com/@LifewoodDataTechnology" aria-label="YouTube"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2025 Lifewood AI Global Data</span>
+                <div class="footer-bottom-links">
+                    <a href="privacy policies.html">Privacy Policy</a>
+                    <a href="terms of services.html">Terms of Service</a>
+                    <div class="logo-hex-icon"></div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+    // --- Preloader (Unchanged) ---
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        window.addEventListener('load', () => {
+            setTimeout(() => { preloader.classList.add('preloader-hidden'); }, 500);
+        });
+    }
+    
+    // --- Mobile Nav (Unchanged) ---
+    const navToggle = document.querySelector('.nav-toggle');
+    const mobileNav = document.getElementById('mobile-nav-overlay');
+    const body = document.body;
+    if (navToggle && mobileNav) {
+        navToggle.addEventListener('click', () => {
+            const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+            navToggle.setAttribute('aria-expanded', String(!isOpen));
+            body.classList.toggle('mobile-nav-open');
+            mobileNav.classList.toggle('open');
+        });
+    }
+    
+    // --- Search Logic (Unchanged) ---
+    const searchInput = document.getElementById('project-search-input');
+    if (searchInput) {
+        const projectCards = document.querySelectorAll('.project-grid .project-card');
+        const noResultsMessage = document.getElementById('no-results-message');
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            let visibleCount = 0;
+            projectCards.forEach(card => {
+                const title = card.querySelector('h4').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+                const isMatch = title.includes(searchTerm) || description.includes(searchTerm);
+                card.style.display = isMatch ? '' : 'none';
+                if (isMatch) visibleCount++;
+            });
+            noResultsMessage.style.display = visibleCount === 0 ? 'block' : 'none';
+        });
+    }
+
+    // --- START: Corrected Flip Card Logic ---
+    const allProjectCards = document.querySelectorAll('.project-card');
+
+    allProjectCards.forEach(card => {
+        const flipForwardButton = card.querySelector('.read-more-btn');
+        const flipBackButton = card.querySelector('.flip-back-btn');
+        const detailsContainer = card.querySelector('.card-back-details');
+        const detailsText = card.dataset.details;
+
+        const flipCard = () => {
+            const video = card.querySelector('.project-video');
+            const videoSrc = card.dataset.video;
+
+            if (card.classList.contains('is-flipped')) {
+                card.classList.remove('is-flipped');
+                video.pause();
+                video.src = "";
+            } else {
+                allProjectCards.forEach(otherCard => {
+                    if (otherCard.classList.contains('is-flipped')) {
+                        otherCard.classList.remove('is-flipped');
+                        const otherVideo = otherCard.querySelector('.project-video');
+                        otherVideo.pause();
+                        otherVideo.src = "";
+                    }
+                });
+
+                // Populate the details before flipping
+                if (detailsContainer) {
+                    detailsContainer.innerHTML = detailsText;
+                }
+                
+                card.classList.add('is-flipped');
+                if (video.src !== videoSrc) {
+                    video.src = videoSrc;
+                }
+                video.play().catch(error => {
+                    console.error("Video autoplay was prevented:", error);
+                });
+            }
+        };
+
+        if (flipForwardButton) {
+            flipForwardButton.addEventListener('click', flipCard);
+        }
+        if (flipBackButton) {
+            flipBackButton.addEventListener('click', flipCard);
+        }
+    });
+    // --- END: Corrected Flip Card Logic ---
+
+    // --- Scroll Animation (Unchanged) ---
+    const scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) { entry.target.classList.add('is-visible'); }
+        });
+    }, { threshold: 0.1 });
+
+    const cardsToAnimate = document.querySelectorAll('.project-card');
+    cardsToAnimate.forEach(card => scrollObserver.observe(card));
+
+</script> 
+</body>
+</html>
