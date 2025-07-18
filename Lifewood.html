@@ -1,0 +1,232 @@
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index AI Global Data</title>
+    
+    <link rel="icon" href="icon.png" type="image/png">
+    <link rel="apple-touch-icon" href="icon.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Lora:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --brand-green: #0a5441;
+            --brand-saffron: #FFB347;
+            --text-dark: #333333;
+            --text-light: #f4f4f4;
+            --bg-paper: #f7f7f7;
+            --bg-white: #ffffff;
+            --border-color: #e0e0e0;
+        }
+        html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Manrope', sans-serif; 
+            background-color: var(--bg-paper); 
+            color: var(--text-dark); 
+        }
+        body.mobile-nav-open { overflow: hidden; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+        
+        .header { position: fixed; top: 0; left: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; z-index: 1000; opacity: 0; animation: fadeIn 1s ease-out 0.5s forwards; background-color: rgba(247, 247, 247, 0.8); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); }
+        .logo-container { display: flex; align-items: center; text-decoration: none; }
+        .logo-image { height:80px; width: auto; display: block; }
+       .logo-text-wrapper {
+    display: flex;
+    flex-direction: column; /* Change to row for side-by-side layout */
+    align-items: center; /* Vertically center the logo and text */
+    gap: 15px; /* Add some space between them */
+}
+       .tagline-logo-line {
+    font-family: 'Manrope', sans-serif;
+    font-size: 13px;
+    font-weight: 500; /* Slightly bolder for better readability */
+    color: #555;
+    white-space: nowrap;
+    line-height: 1; /* Adjust line-height for better alignment */
+    /* The margin-top is no longer needed */
+}
+        .header-right { display: flex; align-items: center; gap: 25px; }
+        .primary-navigation ul { display: flex; gap: 25px; list-style: none; margin: 0; padding: 0; }
+        .primary-navigation a { font-family: 'Lora', serif; font-size: 16px; color: var(--text-dark); text-decoration: none; position: relative; padding-bottom: 5px; transition: color 0.3s ease; }
+        .primary-navigation a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background-color: var(--brand-green); transition: width 0.3s ease, background-color 0.3s ease; }
+        .primary-navigation a:hover::after { width: 100%; }
+        .primary-navigation a.active-link { color: var(--brand-saffron); font-weight: 500; }
+        .primary-navigation a.active-link::after { width: 100%; background-color: var(--brand-saffron); }
+        .contact-btn { background-color: var(--brand-green); color: var(--text-light); text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 700; font-size: 15px; transition: background-color 0.3s ease; white-space: nowrap; }
+        .contact-btn:hover { background-color: #0d6b52; }
+        .nav-toggle { display: none; }
+        
+        .hero { display: flex; justify-content: center; align-items: center; height: 100vh; padding: 100px 40px 40px; background-color: #1a1a1a; overflow: hidden; position: relative; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10, 25, 20, 0.4); z-index: 1; }
+        .hero-wallpaper-video { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); min-width: 100%; min-height: 100%; width: auto; height: auto; object-fit: cover; z-index: 0; }
+        .hero-content { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; opacity: 0; animation: fadeIn 1.2s cubic-bezier(0.19, 1, 0.22, 1) 0.8s forwards; position: relative; z-index: 2; text-align: center; }
+        .hero-main-text { font-family: 'Manrope', sans-serif; font-size: clamp(3rem, 10vw, 6.5rem); font-weight: 700; color: #ffffff; line-height: 1; text-transform: uppercase; letter-spacing: 0.08em; }
+        .hero-tagline { font-family: 'Lora', serif; font-size: clamp(1.1rem, 2.5vw, 1.4rem); font-weight: 500; color: #FFB347; text-transform: uppercase; letter-spacing: 0.2em; }
+
+        .page-content { background-color: var(--bg-white); }
+        .section-title { font-size: clamp(2rem, 5vw, 2.625rem); color: var(--brand-green); margin-bottom: 20px; text-align: center; font-weight: 700; font-family: 'Lora', serif; }
+        .section-subtitle { text-align: center; max-width: 800px; margin: 0 auto 60px auto; font-size: 18px; color: #555; line-height: 1.7; font-weight: 400; }
+        .about-section { padding: 100px 40px; }
+        
+        .map-section { position: relative; height: 80vh; width: 100%; overflow: hidden; background-color: var(--bg-paper); }
+        .map-background { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); min-width: 100%; min-height: 100%; width: auto; height: auto; object-fit: cover; z-index: 1; }
+        .map-description-container { padding: 80px 40px; background-color: var(--bg-white); }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto 60px auto; text-align: center; }
+        .stat-item h3 { font-size: clamp(2.5rem, 6vw, 3.5rem); color: var(--brand-saffron); font-weight: 800; line-height: 1; }
+        .stat-item p { font-family: 'Lora', serif; color: var(--brand-green); font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; }
+        .map-description { text-align: center; max-width: 800px; margin: 0 auto; font-size: 17px; color: #555; line-height: 1.8; }
+
+        .tagline-section { padding: 100px 40px; background-color: var(--bg-paper); text-align: center; }
+        .tagline-section h2 { font-family: 'Lora', serif; font-size: clamp(2rem, 5vw, 3.5rem); color: var(--brand-saffron); font-weight: 500; }
+        .site-footer { background-color: var(--brand-green); color: var(--text-light); padding: 80px 40px 40px; }
+        .footer-main { display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 50px; padding-bottom: 50px; border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
+        .footer-column .footer-logo { display: flex; align-items: center; text-decoration: none; margin-bottom: 20px; }
+        .footer-column p.footer-description { font-size: 15px; line-height: 1.7; opacity: 0.8; max-width: 300px; }
+        .footer-column h4 { font-size: 18px; margin-bottom: 20px; font-weight: 700; color: var(--brand-saffron); }
+        .footer-links { list-style: none; padding: 0; margin: 0; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a, .footer-links p { color: var(--text-light); text-decoration: none; opacity: 0.8; transition: opacity 0.3s ease; }
+        .footer-links a:hover { opacity: 1; }
+        .footer-socials { display: flex; gap: 10px; }
+        .footer-socials a { display: inline-flex; justify-content: center; align-items: center; width: 40px; height: 40px; background-color: rgba(255, 255, 255, 0.1); border-radius: 5px; transition: background-color 0.3s ease; }
+        .footer-socials a:hover { background-color: var(--brand-saffron); }
+        .footer-socials svg { width: 20px; height: 20px; fill: var(--text-light); }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 30px; font-size: 14px; opacity: 0.7; }
+        .footer-bottom-links { display: flex; align-items: center; gap: 20px; }
+        .footer-bottom-links a { color: var(--text-light); text-decoration: none; }
+        .logo-hex-icon { background-color: var(--brand-saffron); width: 20px; height: 23px; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        /* This is your scroll animation style */
+        .fade-in-section { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .fade-in-section.is-visible { opacity: 1; transform: translateY(0); }
+        
+        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; background-color: var(--bg-white); display: flex; justify-content: center; align-items: center; opacity: 1; visibility: visible; transition: opacity 0.75s ease, visibility 0s 0.75s; }
+        #preloader.preloader-hidden { opacity: 0; visibility: hidden; }
+        .loader-content { display: flex; flex-direction: column; align-items: center; gap: 40px; }
+        .loader-logo { width: 100%; max-width: 250px; height: auto; }
+        .spinner { width: 40px; height: 40px; border: 4px solid var(--border-color); border-top-color: var(--brand-green); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        .mobile-nav-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-paper); z-index: 2000; display: flex; flex-direction: column; justify-content: center; align-items: center; transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1); }
+        .mobile-nav-overlay.open { transform: translateY(0); }
+        .mobile-nav-overlay ul { list-style: none; text-align: center; padding: 0; }
+        .mobile-nav-overlay li { margin: 20px 0; }
+        .mobile-nav-overlay a { font-family: 'Lora', serif; font-size: 28px; color: var(--text-dark); text-decoration: none; transition: color 0.3s ease; }
+        .mobile-nav-overlay a.active-link { color: var(--brand-saffron); }
+        .mobile-nav-overlay .contact-btn { display: inline-block; margin-top: 30px; }
+        
+        @media (max-width: 1024px) { .primary-navigation, .header-right > .contact-btn { display: none; } .nav-toggle { display: block; background: none; border: none; cursor: pointer; position: relative; z-index: 2001; } .hamburger { display: block; position: relative; width: 30px; height: 3px; background-color: var(--text-dark); transition: background-color 0.3s ease; border-radius: 5px; } .hamburger::before, .hamburger::after { content: ''; position: absolute; left: 0; width: 100%; height: 3px; background-color: var(--text-dark); border-radius: 5px; transition: transform 0.3s ease; } .hamburger::before { top: -8px; } .hamburger::after { top: 8px; } .mobile-nav-open .hamburger { background-color: transparent; } .mobile-nav-open .hamburger::before { transform: translateY(8px) rotate(45deg); } .mobile-nav-open .hamburger::after { transform: translateY(-8px) rotate(-45deg); } }
+        @media (max-width: 900px) { .container { padding: 0 20px; } .header { padding: 20px; } .about-section, .map-description-container, .tagline-section, .site-footer { padding-left: 20px; padding-right: 20px; } .stats-grid { grid-template-columns: 1fr 1fr; gap: 40px 20px; } .footer-main { grid-template-columns: 1fr 1fr; } .footer-column:first-child { grid-column: 1 / -1; text-align: center; } .footer-column:first-child .footer-logo { justify-content: center; } .footer-column:first-child .logo-text-wrapper { align-items: center; } .footer-column:first-child .footer-description { margin: 0 auto; } .hero { height: 80vh; padding: 120px 20px 60px; } .map-section { height: 60vh; } }
+        @media (max-width: 600px) { .loader-logo { max-width: 180px; } .hero-main-text { font-size: 2.5rem; } .hero { height: 75vh; } .map-section { height: 50vh; } .footer-main { grid-template-columns: 1fr; text-align: center; } .footer-column { margin-bottom: 30px; } .footer-links { text-align: center; } .footer-socials { justify-content: center; } .footer-bottom { flex-direction: column-reverse; gap: 20px; } }
+    </style>
+</head>
+<body>
+
+    <div id="preloader">
+        <div class="loader-content">
+            <img src="icon.png" alt="index Logo" class="loader-logo">
+            <div class="spinner"></div>
+        </div>
+    </div>
+    
+    <header class="header">
+        <a href="index.html" class="logo-container"><div class="logo-text-wrapper"><img src="logo.png" alt="index Logo" class="logo-image"><div class="tagline-logo-line">index Data Technology Limited</div></div></a>
+        <div class="header-right">
+            <nav class="primary-navigation" id="primary-navigation-desktop">
+                <ul>
+                    <li><a href="index.html" class="active-link">Home</a></li>
+                            <li><a href="About Us.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="project.html">Projects</a></li>
+                </ul>
+            </nav>
+            <a href="contact.html" class="contact-btn">Contact</a>
+            <button class="nav-toggle" aria-controls="mobile-nav-overlay" aria-expanded="false"><span class="hamburger"></span></button>
+        </div>
+    </header>
+    <div class="mobile-nav-overlay" id="mobile-nav-overlay">
+        <ul>
+            <li><a href="index.html" class="active-link">Home</a></li>
+                    <li><a href="About Us.html">About Us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="project.html">Projects</a></li>
+        </ul>
+        <a href="contact.html" class="contact-btn">Contact</a>
+    </div>
+    <main>
+        <section id="home" class="hero">
+            <video class="hero-wallpaper-video" autoplay loop muted playsinline>
+                <source src="AIbackgroundvid-vertical.mp4" media="(max-width: 600px)">
+                <source src="AIbackgroundvid.mp4" media="(min-width: 601px)">
+                Your browser does not support the video tag.
+            </video>
+            <div class="hero-content">
+                <h1 class="hero-main-text">EMPOWERING THE FUTURE</h1>
+                <p class="hero-tagline">AI at the Core of Innovation</p>
+            </div>
+        </section>
+        <div class="page-content">
+            <section id="company" class="about-section fade-in-section">
+                <div class="container">
+                    <h2 class="section-title">The Next Level of AI's Potential</h2>
+                    <p class="section-subtitle">At index, we empower businesses to realise the transformative potential of AI. This is the next level, uncovering new methods and insights to reveal unexpected directions and possibilities: connecting across time, generations and technologies for everyone; delivering the highest levels of scalability, integration and security.</p>
+                </div>
+            </section>
+            
+            <section id="project" class="map-section fade-in-section">
+                <video class="map-background" src="map.mp4" autoplay loop muted playsinline></video>
+            </section>
+            <section class="map-description-container fade-in-section">
+                <div class="container">
+                    <div class="stats-grid">
+                        <div class="stat-item"><h3>34K+</h3><p>Devoted Specialists</p></div>
+                        <div class="stat-item"><h3>25</h3><p>Delivery Sites</p></div>
+                        <div class="stat-item"><h3>16</h3><p>Countries on 4 Continents</p></div>
+                        <div class="stat-item"><h3>50+</h3><p>Language Capabilities</p></div>
+                    </div>
+                    <h2 class="section-title">Transforming Data on a Global Scale</h2>
+                    <p class="map-description">index, active in 16 countries from locations as diverse as Benin and Britain, Singapore and Seattle, drives ever forward, igniting a culture of innovation, building bridges and forming new friendships in the ceaseless motion of business and the unlimited possibilities of AI and GPT - creating dynamic opportunities and prosperous communities around the world.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!-- ADDED CLASS to make this section animate on scroll -->
+    <section class="tagline-section fade-in-section"><h2>Always On Never Off</h2></section>
+    <footer id="contact" class="site-footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-column"><a href="index.html" class="footer-logo"><div class="logo-text-wrapper"><img src="icon.png" alt="index Logo" class="logo-image"><div class="tagline-logo-line">index Data Technology Limited</div></div></a><p class="footer-description">index is a global leader in data services, delivering high-quality, scalable support to power cutting-edge artificial intelligence technologies worldwide.</p></div>
+                <div class="footer-column"><h4>Explore</h4><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="project.html">Projects</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+                <div class="footer-column"><h4>Contact Us</h4><ul class="footer-links"><li><a href="mailto:contact@index.com">contact@index.com</a></li><li><a href="tel:09327052554">0932 705 2554</a></li><li><p style="opacity: 0.8; margin: 0;">Ground Floor i2 Building, Jose Del Mar St., Cebu IT Park, Apas Lahug, Cebu City, 6000</p></li></ul></div>
+                <div class="footer-column"><h4>Follow Us</h4><div class="footer-socials"><a href="https://www.facebook.com/indexPH" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v7.028C18.343 21.128 22 16.991 22 12z"/></svg></a><a href="https://www.youtube.com/@indexDataTechnology" aria-label="YouTube"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a></div></div>
+            </div>
+            <div class="footer-bottom"><span>© 2025 index AI Global Data</span><div class="footer-bottom-links"><a href="privacy-policies.html">Privacy Policy</a><a href="terms-of-services.html">Terms of Service</a><div class="logo-hex-icon"></div></div></div>
+        </div>
+    </footer>
+
+    <script>
+        const preloader = document.getElementById('preloader');
+        if (preloader) {
+            window.addEventListener('load', () => { 
+              setTimeout(() => { preloader.classList.add('preloader-hidden'); }, 500);
+            });
+        }
+        
+        const navToggle=document.querySelector(".nav-toggle"),mobileNav=document.getElementById("mobile-nav-overlay"),body=document.body;
+        navToggle && mobileNav && navToggle.addEventListener("click",(()=>{const e=navToggle.getAttribute("aria-expanded")==="true";navToggle.setAttribute("aria-expanded",String(!e)),body.classList.toggle("mobile-nav-open"),mobileNav.classList.toggle("open")}));
+        
+        // This JavaScript is what powers the scroll animation
+        const fadeInObserver=new IntersectionObserver((entries=>{entries.forEach((entry=>{entry.isIntersecting&&entry.target.classList.add("is-visible")}))}),{threshold:.1});
+        const sectionsToAnimate=document.querySelectorAll(".fade-in-section");
+        sectionsToAnimate.forEach((section=>fadeInObserver.observe(section)));
+    </script>
+</body>
+</html>
